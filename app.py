@@ -1,8 +1,9 @@
 from tkinter import *
+import server as tcpServer
 
 
 def OpenServer():
-    print("Server is listening...")
+    tcpServer.SetServerParams(ipGet.get(), portGet.get())
 
 
 # Show main window
