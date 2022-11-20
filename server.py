@@ -2,6 +2,7 @@ import socket
 import threading
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+FORMAT = "utf-8"
 
 def SetServerParams(ip: str, port: str):
 
@@ -31,7 +32,7 @@ def handle_client(conn : socket, addr : any):
     connected = True
 
     while connected:
-        msg = conn.recv(1024)
+        msg = conn.recv(1024).decode(FORMAT)
 
         if msg == DISCONNECT_MESSAGE:
             connected = False
@@ -45,7 +46,7 @@ def start(ip : str, port : int):
     server.listen()
 
     print(f"[LISTENING] Server is listening on {ip}")
-    
+
     while True :
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
